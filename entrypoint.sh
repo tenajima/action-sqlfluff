@@ -13,6 +13,8 @@ git fetch --prune --unshallow --no-tags
 
 SQL_FILE_PATTERN="${FILE_PATTERN:?}"
 SOURCE_REFERENCE="origin/${GITHUB_PULL_REQUEST_BASE_REF:?}"
+echo $INPUT_WORKING_DIRECTORY
+echo $INPUT_WORKING_DIRECTORY/${SQLFLUFF_PATHS:?}
 changed_files=$(git diff --name-only --no-color "$SOURCE_REFERENCE" "HEAD" -- "$INPUT_WORKING_DIRECTORY/${SQLFLUFF_PATHS:?}" |
   grep -e "${SQL_FILE_PATTERN:?}" |
   xargs -I% bash -c 'if [[ -f "%" ]] ; then echo "%"; fi' || :)
